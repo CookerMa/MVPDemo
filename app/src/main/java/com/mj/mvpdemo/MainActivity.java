@@ -1,38 +1,112 @@
 package com.mj.mvpdemo;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+import com.mj.mvpdemo.model.User;
+import com.mj.mvpdemo.presenter.UserLoginPresenter;
+import com.mj.mvpdemo.view.IUserLoginView;
+
+public class MainActivity extends AppCompatActivity implements IUserLoginView {
+
+
+
+
+    private EditText mEtUsername, mEtPassword;
+    private Button mBtnLogin;
+    private ProgressBar mPbLoading;
+
+    private UserLoginPresenter mUserLoginPresenter = new UserLoginPresenter(this);
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        initViews();
+    }
+
+    private void initViews() {
+        mEtUsername = (EditText) findViewById(R.id.editText);
+        mEtPassword = (EditText) findViewById(R.id.editText2);
+
+        mBtnLogin = (Button) findViewById(R.id.button);
+
+        mPbLoading = (ProgressBar) findViewById(R.id.pb);
+
+        mBtnLogin.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+            public void onClick(View v)
+            {
+                mUserLoginPresenter.login();
             }
         });
+
+
+    }
+
+
+    @Override
+    public String getUserName()
+    {
+        return mEtUsername.getText().toString();
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
+    public String getPassword()
+    {
+        return mEtPassword.getText().toString();
     }
+
+    @Override
+    public void clearUserName()
+    {
+        mEtUsername.setText("");
+    }
+
+    @Override
+    public void clearPassword()
+    {
+        mEtPassword.setText("");
+    }
+
+    @Override
+    public void showLoading()
+    {
+        mPbLoading.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideLoading()
+    {
+        mPbLoading.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void toMainActivity(User user)
+    {
+        Snackbar.make(mBtnLogin, "login success", Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show();
+
+    }
+
+    @Override
+    public void showFailedError()
+    {
+        Toast.makeText(this,
+                "login failed", Toast.LENGTH_SHORT).show();
+    }
+
+
+
 
 
 }

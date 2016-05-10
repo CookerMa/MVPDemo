@@ -12,8 +12,73 @@
     tools:context="com.mj.mvpdemo.MainActivity"
     tools:showIn="@layout/activity_main">
 
-    <TextView
+    <RelativeLayout
+        android:id="@+id/name_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/editText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_toRightOf="@+id/textView"
+            android:ems="10"
+            android:inputType="textPersonName" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:text="用户名:"
+            android:textSize="18sp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/name_layout">
+
+        <EditText
+
+            android:id="@+id/editText2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/textView2"
+            android:ems="10"
+            android:inputType="textPassword" />
+
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="密码:"
+            android:textSize="18sp" />
+    </RelativeLayout>
+
+    <ProgressBar
+        android:visibility="gone"
+        android:id="@+id/pb"
+        android:layout_centerHorizontal="true"
+        style="?android:attr/progressBarStyleSmall"
+        android:layout_above="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:layout_centerHorizontal="true"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="63dp"
+        android:text="Login" />
 </RelativeLayout>
