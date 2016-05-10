@@ -6,3 +6,7 @@
 .DS_Store
 /build
 /captures
+/MVPDemo/build
+*.idea
+/.idea
+/.gradle

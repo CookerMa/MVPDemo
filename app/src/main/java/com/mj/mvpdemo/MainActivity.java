@@ -67,18 +67,6 @@ public class MainActivity extends AppCompatActivity implements IUserLoginView {
     }
 
     @Override
-    public void clearUserName()
-    {
-        mEtUsername.setText("");
-    }
-
-    @Override
-    public void clearPassword()
-    {
-        mEtPassword.setText("");
-    }
-
-    @Override
     public void showLoading()
     {
         mPbLoading.setVisibility(View.VISIBLE);
