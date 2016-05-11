@@ -1,7 +1,9 @@
 package com.mj.mvpdemo;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.TextView;
 
 import com.mj.mvpdemo.dagger.ActivityComponent;
@@ -25,6 +27,7 @@ public class DaggerActivity extends AppCompatActivity {
     User user;
     @Inject
     Mobile mobile;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,7 +36,13 @@ public class DaggerActivity extends AppCompatActivity {
         ContentComonent comonent = DaggerContentComonent.builder().activityComponent(component).contentModule(new ContentModule()).build();
 
         comonent.inject(this);
-         ((TextView) findViewById(R.id.tv)).setText("用户名" + user.userName + "\n\t 密码" + user.userPwd + "\n\t 手机" + mobile.num);
+        ((TextView) findViewById(R.id.tv)).setText("用户名" + user.userName + "\n\t 密码" + user.userPwd + "\n\t 手机" + mobile.num);
+        findViewById(R.id.tv).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(DaggerActivity.this,DemoActivity.class));
+            }
+        });
 
     }
 }
