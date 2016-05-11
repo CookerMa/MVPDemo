@@ -1,5 +1,6 @@
 package com.mj.mvpdemo;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -7,15 +8,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.mj.mvpdemo.model.User;
 import com.mj.mvpdemo.presenter.UserLoginPresenter;
 import com.mj.mvpdemo.view.IUserLoginView;
 
 public class MainActivity extends AppCompatActivity implements IUserLoginView {
-
-
 
 
     private EditText mEtUsername, mEtPassword;
@@ -25,8 +23,7 @@ public class MainActivity extends AppCompatActivity implements IUserLoginView {
     private UserLoginPresenter mUserLoginPresenter = new UserLoginPresenter(this);
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -41,11 +38,9 @@ public class MainActivity extends AppCompatActivity implements IUserLoginView {
 
         mPbLoading = (ProgressBar) findViewById(R.id.pb);
 
-        mBtnLogin.setOnClickListener(new View.OnClickListener()
-        {
+        mBtnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v)
-            {
+            public void onClick(View v) {
                 mUserLoginPresenter.login();
             }
         });
@@ -55,46 +50,47 @@ public class MainActivity extends AppCompatActivity implements IUserLoginView {
 
 
     @Override
-    public String getUserName()
-    {
+    public String getUserName() {
         return mEtUsername.getText().toString();
     }
 
     @Override
-    public String getPassword()
-    {
+    public String getPassword() {
         return mEtPassword.getText().toString();
     }
 
     @Override
-    public void showLoading()
-    {
+    public void showLoading() {
         mPbLoading.setVisibility(View.VISIBLE);
     }
 
     @Override
-    public void hideLoading()
-    {
+    public void hideLoading() {
         mPbLoading.setVisibility(View.GONE);
     }
 
     @Override
-    public void toMainActivity(User user)
-    {
+    public void toMainActivity(User user) {
         Snackbar.make(mBtnLogin, "login success", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show();
+                .setAction("Action", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        startActivity(new Intent(MainActivity.this, MyProgressActivity.class));
+                    }
+                }).show();
 
     }
 
     @Override
-    public void showFailedError()
-    {
-        Toast.makeText(this,
-                "login failed", Toast.LENGTH_SHORT).show();
+    public void showFailedError() {
+        Snackbar.make(mBtnLogin, "login failed", Snackbar.LENGTH_LONG)
+                .setAction("Action", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        startActivity(new Intent(MainActivity.this, DaggerActivity.class));
+                    }
+                }).show();
     }
-
-
-
 
 
 }
