@@ -1,6 +1,6 @@
 package com.mj.mvpdemo.dagger;
 
-import com.mj.mvpdemo.DaggerActivity;
+import com.mj.mvpdemo.model.User;
 
 import dagger.Component;
 
@@ -10,5 +10,6 @@ import dagger.Component;
  */
 @Component(modules = ActivityModule.class)
 public interface ActivityComponent {
-    void inject(DaggerActivity activity);
+//    void inject(DaggerActivity activity);
+    User user();
 }
